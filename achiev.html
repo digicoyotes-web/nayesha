@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements | Nayesha Healthcare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Theme Colors from Index */
+            --primary-blue: #0056b3;
+            --secondary-blue: #003d80;
+            --accent-light: #e7f1ff;
+            --Red: #c5161d;
+            --Blue: #007eca;
+            --secondary-dark: #0a192f;
+        }
+        
+        body { font-family: 'Open Sans', sans-serif; font-size: 15px; background-color: #fcfcfc; }
+        /* ===== SHARED NAVBAR STYLES ===== */
+        .navbar { font-family: 'Open Sans', sans-serif; }
+        .navbar .nav-link { font-size: 15px; font-weight: 600; }
+        .navbar-brand img { height: 55px; }
+        /* ===== SHARED FOOTER STYLES ===== */
+        footer { font-family: 'Open Sans', sans-serif; background: #0a192f; color: white; padding: 60px 0 20px; }
+        footer h3 { font-size: 20px; font-weight: 700; }
+        footer h5 { font-size: 16px; font-weight: 700; }
+        footer p, footer li, footer a { font-size: 14px; }
+        footer small { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+        /* Brand Classes */
+        .text-brand { color: var(--Blue) !important; }
+        .bg-brand { background-color: var(--Blue) !important; }
+        .text-primary-red { color: var(--Red) !important; }
+
+        .navbar-brand { font-weight: 800; color: var(--Blue); letter-spacing: -1px; }
+        .btn-primary { background-color: var(--Blue); border: none; padding: 12px 30px; border-radius: 8px; transition: all 0.3s;}
+        .btn-primary:hover { background-color: var(--secondary-blue); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 126, 202, 0.3);}
+        
+        .btn-primary-custom { background-color: var(--Red); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; transition: all 0.3s;}
+        .btn-primary-custom:hover { background-color: #a01015; color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(197, 22, 29, 0.3);}
+
+        /* Navigation */
+        .navbar .dropdown-menu { border-radius: 12px; padding: 10px; margin-top: 10px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05);}
+        .dropdown-item { padding: 10px 20px; border-radius: 8px; transition: all 0.2s ease; color: #444; }
+        .dropdown-item:hover { background-color: var(--accent-light); color: var(--Blue); transform: translateX(5px); }
+
+        @media (min-width: 992px) {
+            .nav-item.dropdown:hover .dropdown-menu { display: block; animation: fadeIn 0.3s ease; }
+            .nav-link { position: relative; }
+            .nav-link::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--Red); transition: all 0.3s ease; transform: translateX(-50%);}
+            .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Banner with Overlay Image */
+        .hero-banner { 
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+            padding: 120px 0 80px; 
+            color: white;
+        }
+        
+        .hero-banner .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 126, 202, 0.85);
+            z-index: 1;
+        }
+
+        .hero-banner .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Banner Text Overrides */
+        .hero-banner h1 { color: white !important; }
+        .hero-banner .text-brand { color: white !important; }
+        .hero-banner .text-muted { color: rgba(255, 255, 255, 0.85) !important; }
+        .hero-banner .breadcrumb-item a { color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.3s; }
+        .hero-banner .breadcrumb-item a:hover { color: white; }
+        .hero-banner .breadcrumb-item.active { color: white !important; }
+        .hero-banner .breadcrumb-item + .breadcrumb-item::before { color: rgba(255, 255, 255, 0.5); }
+
+        /* Achievement Cards */
+        .section-padding { padding: 80px 0; }
+        
+        .achievement-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .achievement-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+
+        .achievement-content { padding: 40px; }
+
+        .achievement-badge {
+            background-color: var(--accent-light);
+            color: var(--Blue);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--Blue) 0%, #005a96 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 500px; height: 500px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        /* Footer */
+        footer { background: var(--secondary-dark); color: white; padding: 60px 0 20px; }
+        .footer-link { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s; }
+        .footer-link:hover { color: var(--Blue); }
+        .social-icon { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; margin-right: 10px; transition: all 0.3s;}
+        .social-icon:hover { background: var(--Red); color: white; transform: translateY(-3px);}
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav" class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-2">
+        <div class="container">
+            <style> .logo { height: 55px; } </style>
+            <a class="navbar-brand" href="index.html">
+                <img src="Trust & Legacy Focus.webp" class="logo" alt="Nayesha Healthcare Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-semibold align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="planning.html">Hospital Planning & Designing</a></li>
+                            <li><a class="dropdown-item" href="manage.html">Hospital Management Outsourcing</a></li>
+                            <li><a class="dropdown-item" href="acc.html">NABH & NABL Accreditations</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link active text-brand" href="achievements.html">Achievements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-lg-3 px-4" href="tel:+918454831188">+91 8454831188</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-banner text-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Our <span class="text-brand">Achievements</span></h1>
+            <p class="lead text-muted mx-auto mb-4" style="max-width: 700px;">Celebrating milestones, recognitions, and our commitment to excellence in the healthcare sector.</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center text-uppercase small fw-bold">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Achievements</li>
+                </ol>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section-padding">
+        <div class="container">
+            
+            <!-- Achievement 1: Secure Path Laboratories -->
+            <div class="achievement-card">
+                <div class="row g-0 align-items-center">
+                    <div class="col-lg-5">
+                        <img src="achiev1.jpg" onerror="this.src='https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&q=80&w=600&h=450'" alt="Doctor holding heart - Secure Path Laboratories" class="img-fluid w-100" style="object-fit: cover; height: 380px;">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="achievement-content">
+                            <span class="achievement-badge">Industry Recognition</span>
+                            <h3 class="fw-bold mb-3 text-dark">Secure Path Laboratories</h3>
+                            <p class="fs-5 text-muted lh-base">
+                                Honoured by <strong class="text-brand">Dr. Deoyani Kalekar</strong> of Secure Path Laboratories for prompt and satisfactory services provided by Nayesha Healthcare Pvt. Ltd.
+                            </p>
+                            <div class="mt-4 pt-3 border-top">
+                                <p class="mb-0 small text-muted"><i class="bi bi-award-fill text-primary-red me-2 fs-5"></i> Demonstrating excellence in healthcare service delivery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievement 2: Rajiv Gandhi Education Society -->
+            <div class="achievement-card">
+                <div class="row g-0 align-items-center flex-lg-row-reverse">
+                    <div class="col-lg-5">
+                        <img src="achiev4.jpg" onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600&h=450'" alt="Medical team - Rajiv Gandhi Education Society" class="img-fluid w-100" style="object-fit: cover; height: 380px;">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="achievement-content">
+                            <span class="achievement-badge">Institutional Felicitation</span>
+                            <h3 class="fw-bold mb-3 text-dark">Rajiv Gandhi Education Society</h3>
+                            <p class="fs-5 text-muted lh-base">
+                                A proud moment for Nayesha Healthcare Pvt. Ltd. Felicitations by <strong class="text-brand">Rajiv Gandhi Education Society</strong>, Gadag, Karnataka.
+                            </p>
+                            <p class="text-muted">
+                                This momentous occasion took place in the prestigious presence of <strong class="text-dark">36 representatives of 12 Ayurvedic medical colleges</strong> of Karnataka.
+                            </p>
+                            <div class="mt-4 pt-3 border-top">
+                                <p class="mb-0 small text-muted"><i class="bi bi-people-fill text-primary-red me-2 fs-5"></i> Expanding our footprint in medical education and management.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo Gallery: 5 provided images -->
+            <div class="mt-5 pt-3">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold">Our Work in Action</h3>
+                    <div style="width:50px;height:4px;background:#c5161d;margin:12px auto 0;border-radius:2px;"></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="achievement-gallery-item">
+                            <img src="achiev1.jpg" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=600&h=400'" alt="Doctor with heart - Patient Care" class="img-fluid rounded-3 shadow-sm w-100" style="height: 260px; object-fit: cover;">
+                            <div class="gallery-caption">
+                                <i class="bi bi-heart-fill text-primary-red me-2"></i> Patient-First Approach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="achievement-gallery-item">
+                            <img src="achiev2.jpg" onerror="this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&q=80&w=600&h=400'" alt="Medical team collaboration" class="img-fluid rounded-3 shadow-sm w-100" style="height: 260px; object-fit: cover;">
+                            <div class="gallery-caption">
+                                <i class="bi bi-people-fill text-primary-red me-2"></i> Expert Team Collaboration
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="achievement-gallery-item">
+                            <img src="achiev3.jpg" onerror="this.src='https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=600&h=400'" alt="Hospital ward patient care" class="img-fluid rounded-3 shadow-sm w-100" style="height: 260px; object-fit: cover;">
+                            <div class="gallery-caption">
+                                <i class="bi bi-hospital-fill text-primary-red me-2"></i> Hospital Ward Excellence
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="achievement-gallery-item">
+                            <img src="achiev4.jpg" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=700&h=400'" alt="Education and training session" class="img-fluid rounded-3 shadow-sm w-100" style="height: 260px; object-fit: cover;">
+                            <div class="gallery-caption">
+                                <i class="bi bi-mortarboard-fill text-primary-red me-2"></i> Training & Education Programs
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="achievement-gallery-item">
+                            <img src="achiev5.jpg" onerror="this.src='https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&q=80&w=700&h=400'" alt="Healthcare partnership handshake" class="img-fluid rounded-3 shadow-sm w-100" style="height: 260px; object-fit: cover;">
+                            <div class="gallery-caption">
+                                <i class="bi bi-shield-check text-primary-red me-2"></i> Trusted Healthcare Partnerships
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <style>
+    .achievement-gallery-item { position: relative; overflow: hidden; border-radius: 12px; }
+    .achievement-gallery-item img { transition: transform 0.4s ease; display: block; }
+    .achievement-gallery-item:hover img { transform: scale(1.05); }
+    .gallery-caption { padding: 12px 15px; background: #fff; font-size: 14px; font-weight: 600; color: #333; border-top: 1px solid #f0f0f0; }
+    </style>
+
+    <section class="cta-section text-center">
+        <div class="container position-relative z-index-1">
+            <h2 class="display-6 fw-bold mb-4">Is Hospital Accreditation Stress Taking Away Your Focus on Patients?</h2>
+            <p class="fs-5 opacity-75 mb-5 mx-auto" style="max-width: 700px;">Partner with award-winning experts to streamline your hospital management and achieve accreditations effortlessly.</p>
+            <a href="contact.html" class="btn btn-primary-custom btn-lg px-5 py-3 shadow">Get Started <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4 mb-5 mt-2">
+                <div class="col-lg-4">
+                    <h3 class="fw-bold mb-4">Nayesha <span class="text-brand">Healthcare</span></h3>
+                    <p class="text-white-50 lh-lg">Transforming healthcare infrastructure and management with domain expertise, ensuring quality care with a personal touch.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <h5 class="fw-bold mb-4">Quick Links</h5>
+                    <ul class="list-unstyled lh-lg">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="achievements.html" class="footer-link">Achievements</a></li>
+                        <li><a href="blog.html" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-4">Contact Us</h5>
+                    <ul class="list-unstyled lh-lg">
+                        <li class="mb-2 text-white-50"><i class="bi bi-geo-alt-fill text-primary-red me-3 fs-5"></i> Maharashtra, India</li>
+                        <li class="mb-2"><a href="mailto:info@nayesha.com" class="footer-link"><i class="bi bi-envelope-fill text-primary-red me-3 fs-5"></i> info@nayesha.com</a></li>
+                        <li class="mb-2"><a href="tel:+918454831188" class="footer-link"><i class="bi bi-telephone-fill text-primary-red me-3 fs-5"></i> +91 8454831188</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary mb-4">
+            <div class="text-center text-white-50">
+                <small>© 2026 Nayesha Healthcare Pvt. Ltd. | All Rights Reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
